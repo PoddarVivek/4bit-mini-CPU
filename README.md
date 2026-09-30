@@ -33,11 +33,16 @@ The CPU reads an 8-bit instruction. The top 4 bits are the opcode, and the botto
 
 ## How to Run
 
-I tested this using ModelSim (you can use Vivado too):
+The testbench is self-checking: it runs each instruction for one clock, compares `reg_a` and `reg_b` with the expected values, and prints PASS or FAIL. It also covers 4-bit wraparound and an undefined opcode.
 
-1. Load all three files.
-2. Compile and simulate the `mini_cpu_tb.v` file.
-3. Watch how `reg_a` and `reg_b` change after each instruction.
+With Icarus Verilog:
+
+```bash
+iverilog -o cpu alu.v mini_cpu.v mini_cpu_tb.v
+vvp cpu
+```
+
+ModelSim and Vivado work the same way: add the three files and simulate `mini_cpu_tb`. I originally validated the design in ModelSim with a display-only testbench. The checks in this version have not been run in a simulator yet.
 
 ---
 
